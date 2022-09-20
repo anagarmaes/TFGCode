@@ -10,14 +10,13 @@
 // Variables fijas de calibración
 #define pinV 39
 #define pinI 35
-#define vCalibration 200
+#define vCalibration 210
 #define phase_shift 1
 
-#define sendInterval 10000
+#define sendInterval 10000 // 10 segundos
 
-float realPower, apparentPower, Vrms, Irms, PowerFactor, kWmin;
+float realPower, apparentPower, Vrms, Irms, PowerFactor;
 float diffTime;
-int j = 0;
 float sumP, sumS, sumVrms, sumIrms, sumPF, kWh;
 float sumP1, sumS1, sumVrms1, sumIrms1, sumPF1, kWh1;
 float sumP2, sumS2, sumVrms2, sumIrms2, sumPF2, kWh2;
@@ -31,7 +30,6 @@ int cont;
 //Variables Emoncms
 IPAddress server(109, 169, 55, 159);
 String apikey = "a946c2b86c727bffee87ce3d4449af3e";
-const unsigned long postingInterval = 10 * 1000; // delay between updates, in milliseconds
 int port = 80;
 
 // Creación de instancias
@@ -89,7 +87,7 @@ void loop() {
   diffTime = 0;
   float timeMin = millis();
 
-  while (diffTime <= sendInterval) { // 1 min
+  while (diffTime <= sendInterval) { 
     emon1.calcVI(20, 2000);
     float realPower = emon1.realPower;
     sumP1 += realPower;
@@ -104,7 +102,7 @@ void loop() {
     diffTime = millis() - timeMin;
     cont++;
   }
-  kWh1 = (sumS1 / cont) * (diffTime) / (sendInterval * 1000); // en realidad kWmin
+  kWh1 = (sumS1 / cont) * (diffTime) / (sendInterval * 1000); 
   sendData(server, sumP1 / cont, sumS1 / cont, sumVrms1 / cont, sumIrms1 / cont, sumPF1 / cont, kWh1);
   serialprint(sumP1, sumS1, sumVrms1, sumIrms1, sumPF1, kWh1, cont);
 
@@ -117,7 +115,7 @@ void loop() {
   cont = 0;
   timeMin = millis();
 
-  while (diffTime <= sendInterval) { // 1 min
+  while (diffTime <= sendInterval) { 
     emon2.calcVI(20, 2000);
     float realPower = emon2.realPower;
     sumP2 += realPower;
@@ -132,7 +130,7 @@ void loop() {
     diffTime = millis() - timeMin;
     cont++;
   }
-  kWh2 = (sumS2 / cont) * (diffTime) / (sendInterval * 1000); // en realidad kWmin
+  kWh2 = (sumS2 / cont) * (diffTime) / (sendInterval * 1000); 
   sendData(server, sumP2 / cont, sumS2 / cont, sumVrms2 / cont, sumIrms2 / cont, sumPF2 / cont, kWh2);
   serialprint(sumP2, sumS2, sumVrms2, sumIrms2, sumPF2, kWh2, cont);
 
@@ -145,7 +143,7 @@ void loop() {
   cont = 0;
   timeMin = millis();
 
-  while (diffTime <= sendInterval) { // 1 min
+  while (diffTime <= sendInterval) { 
     emon3.calcVI(20, 2000);
     float realPower = emon3.realPower;
     sumP3 += realPower;
@@ -160,7 +158,7 @@ void loop() {
     diffTime = millis() - timeMin;
     cont++;
   }
-  kWh3 = (sumS3 / cont) * (diffTime) / (sendInterval * 1000); // en realidad kWmin
+  kWh3 = (sumS3 / cont) * (diffTime) / (sendInterval * 1000); 
   sendData(server, sumP3 / cont, sumS3 / cont, sumVrms3 / cont, sumIrms3 / cont, sumPF3 / cont, kWh3);
   serialprint(sumP3, sumS3, sumVrms3, sumIrms3, sumPF3, kWh3, cont);
 
@@ -173,7 +171,7 @@ void loop() {
   cont = 0;
   timeMin = millis();
 
-  while (diffTime <= sendInterval) { // 1 min
+  while (diffTime <= sendInterval) { 
     emon4.calcVI(20, 2000);
     float realPower = emon4.realPower;
     sumP4 += realPower;
@@ -188,7 +186,7 @@ void loop() {
     diffTime = millis() - timeMin;
     cont++;
   }
-  kWh4 = (sumS4 / cont) * (diffTime) / (sendInterval * 1000); // en realidad kWmin
+  kWh4 = (sumS4 / cont) * (diffTime) / (sendInterval * 1000); 
   sendData(server, sumP4 / cont, sumS4 / cont, sumVrms4 / cont, sumIrms4 / cont, sumPF4 / cont, kWh4);
   serialprint(sumP4, sumS4, sumVrms4, sumIrms4, sumPF4, kWh4, cont);
 
@@ -217,7 +215,7 @@ void loop() {
   cont = 0;
   timeMin = millis();
 
-  while (diffTime <= sendInterval) { // 1 min
+  while (diffTime <= sendInterval) { 
     emon5.calcVI(20, 2000);
     float realPower = emon5.realPower;
     sumP += realPower;
@@ -232,7 +230,7 @@ void loop() {
     diffTime = millis() - timeMin;
     cont++;
   }
-  kWh = (sumS / cont) * (diffTime) / (sendInterval * 1000); // en realidad kWmin
+  kWh = (sumS / cont) * (diffTime) / (sendInterval * 1000); 
   sendData(server, sumP / cont, sumS / cont, sumVrms / cont, sumIrms / cont, sumPF / cont, kWh);
   serialprint(sumP, sumS, sumVrms, sumIrms, sumPF, kWh, cont);
 
@@ -245,7 +243,7 @@ void loop() {
   cont = 0;
   timeMin = millis();
 
-  while (diffTime <= sendInterval) { // 1 min
+  while (diffTime <= sendInterval) { 
     emon6.calcVI(20, 2000);
     float realPower = emon6.realPower;
     sumP6 += realPower;
@@ -260,7 +258,7 @@ void loop() {
     diffTime = millis() - timeMin;
     cont++;
   }
-  kWh6 = (sumS6 / cont) * (diffTime) / (sendInterval * 1000); // en realidad kWmin
+  kWh6 = (sumS6 / cont) * (diffTime) / (sendInterval * 1000); 
   sendData(server, sumP6 / cont, sumS6 / cont, sumVrms6 / cont, sumIrms6 / cont, sumPF6 / cont, kWh6);
   serialprint(sumP6, sumS6, sumVrms6, sumIrms6, sumPF6, kWh6, cont);
 
@@ -273,7 +271,7 @@ void loop() {
   cont = 0;
   timeMin = millis();
 
-  while (diffTime <= sendInterval) { // 1 min
+  while (diffTime <= sendInterval) { 
     emon7.calcVI(20, 2000);
     float realPower = emon7.realPower;
     sumP += realPower;
@@ -288,7 +286,7 @@ void loop() {
     diffTime = millis() - timeMin;
     cont++;
   }
-  kWh = (sumS / cont) * (diffTime) / (sendInterval * 1000); // en realidad kWmin
+  kWh = (sumS / cont) * (diffTime) / (sendInterval * 1000); 
   sendData(server, sumP / cont, sumS / cont, sumVrms / cont, sumIrms / cont, sumPF / cont, kWh);
   serialprint(sumP, sumS, sumVrms, sumIrms, sumPF, kWh, cont);
 
@@ -305,7 +303,7 @@ void loop() {
   cont = 0;
   timeMin = millis();
 
-  while (diffTime <= sendInterval) { // 1 min
+  while (diffTime <= sendInterval) { 
     emon8.calcVI(20, 2000);
     float realPower = emon8.realPower;
     sumP8 += realPower;
@@ -320,7 +318,7 @@ void loop() {
     diffTime = millis() - timeMin;
     cont++;
   }
-  kWh8 = (sumS8 / cont) * (diffTime) / (sendInterval * 1000); // en realidad kWmin
+  kWh8 = (sumS8 / cont) * (diffTime) / (sendInterval * 1000); 
   sendData(server, sumP8 / cont, sumS8 / cont, sumVrms8 / cont, sumIrms8 / cont, sumPF8 / cont, kWh8);
   serialprint(sumP8, sumS8, sumVrms8, sumIrms8, sumPF8, kWh8, cont);
 
@@ -333,7 +331,7 @@ void loop() {
   cont = 0;
   timeMin = millis();
 
-  while (diffTime <= sendInterval) { // 1 min
+  while (diffTime <= sendInterval) { 
     emon9.calcVI(20, 2000);
     float realPower = emon9.realPower;
     sumP9 += realPower;
@@ -348,7 +346,7 @@ void loop() {
     diffTime = millis() - timeMin;
     cont++;
   }
-  kWh9 = (sumS9 / cont) * (diffTime) / (sendInterval * 1000); // en realidad kWmin
+  kWh9 = (sumS9 / cont) * (diffTime) / (sendInterval * 1000); 
   sendData(server, sumP9 / cont, sumS9 / cont, sumVrms9 / cont, sumIrms9 / cont, sumPF9 / cont, kWh9);
   serialprint(sumP9, sumS9, sumVrms9, sumIrms9, sumPF9, kWh9, cont);
 
@@ -361,7 +359,7 @@ void loop() {
   cont = 0;
   timeMin = millis();
 
-  while (diffTime <= sendInterval) { // 1 min
+  while (diffTime <= sendInterval) { 
     emon10.calcVI(20, 2000);
     float realPower = emon10.realPower;
     sumP += realPower;
@@ -376,7 +374,7 @@ void loop() {
     diffTime = millis() - timeMin;
     cont++;
   }
-  kWh = (sumS / cont) * (diffTime) / (sendInterval * 1000); // en realidad kWmin
+  kWh = (sumS / cont) * (diffTime) / (sendInterval * 1000); 
   sendData(server, sumP / cont, sumS / cont, sumVrms / cont, sumIrms / cont, sumPF / cont, kWh);
   serialprint(sumP, sumS, sumVrms, sumIrms, sumPF, kWh, cont);
 
@@ -389,7 +387,7 @@ void loop() {
   cont = 0;
   timeMin = millis();
 
-  while (diffTime <= sendInterval) { // 1 min
+  while (diffTime <= sendInterval) { 
     emon11.calcVI(20, 2000);
     float realPower = emon11.realPower;
     sumP += realPower;
@@ -404,7 +402,7 @@ void loop() {
     diffTime = millis() - timeMin;
     cont++;
   }
-  kWh = (sumS / cont) * (diffTime) / (sendInterval * 1000); // en realidad kWmin
+  kWh = (sumS / cont) * (diffTime) / (sendInterval * 1000); 
   sendData(server, sumP / cont, sumS / cont, sumVrms / cont, sumIrms / cont, sumPF / cont, kWh);
   serialprint(sumP, sumS, sumVrms, sumIrms, sumPF, kWh, cont);
 
@@ -417,7 +415,7 @@ void loop() {
   cont = 0;
   timeMin = millis();
 
-  while (diffTime <= sendInterval) { // 1 min
+  while (diffTime <= sendInterval) { 
     emon12.calcVI(20, 2000);
     float realPower = emon12.realPower;
     sumP += realPower;
@@ -432,7 +430,7 @@ void loop() {
     diffTime = millis() - timeMin;
     cont++;
   }
-  kWh = (sumS / cont) * (diffTime) / (sendInterval * 1000); // en realidad kWmin
+  kWh = (sumS / cont) * (diffTime) / (sendInterval * 1000); 
   sendData(server, sumP / cont, sumS / cont, sumVrms / cont, sumIrms / cont, sumPF / cont, kWh);
   serialprint(sumP, sumS, sumVrms, sumIrms, sumPF, kWh, cont);
 
@@ -497,5 +495,5 @@ void serialprint(float rp, float ap, float v, float i, float pf, float e, int co
   Serial.print(pf / cont, 3);
   Serial.print("\tConsumo Electrico: ");
   Serial.print(e, 3);
-  Serial.println(" kWmin");
+  Serial.println(" kWh");
 }
