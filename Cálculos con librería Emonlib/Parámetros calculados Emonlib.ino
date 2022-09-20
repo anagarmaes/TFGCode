@@ -8,8 +8,8 @@
 
 /*
  #define iCalibration 8.8 // caso 2 (P2 = 2300 W)
- #define iCalibration // caso 3 (P3 = 3450 W)
- #define iCalibration // caso 4 (P4 = 4600 W)
+ #define iCalibration 13.2 // caso 3 (P3 = 3450 W)
+ #define iCalibration 14.08 // caso 4 (P4 = 4600 W)
  */
 
 float realPower, apparentPower, Vrms, Irms, PowerFactor;
