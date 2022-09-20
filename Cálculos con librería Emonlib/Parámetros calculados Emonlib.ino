@@ -14,6 +14,13 @@
 
 float realPower, apparentPower, Vrms, Irms, PowerFactor;
 float actualTime, diffTime;
+float kWmin; //en un minuto
+
+// Necesario cuando la señal contiene componentes armónica
+double THD12 = 50;
+double fp12 = 1 / sqrt(1 + pow((THD12 / 100), 2)); // PF = powerFactor =  emon1.powerFactor*fp12
+double THD123 = 51.5388;
+double fp123 = 1 / sqrt(1 + pow((THD123 / 100), 2)); // PF = powerFactor =  emon1.powerFactor*fp12
 
 EnergyMonitor emon1;
 
@@ -51,6 +58,10 @@ void loop() {
     diffTime = millis() - timeMin;
     cont++;
   }
+ 
+  // Cálculo energía eléctrica en 1 minuto
+  kWmin = kWmin + (sumS / cont) * (diffTime) / 60000000; //kWmin, porque queremos 1 min y en kW
+ 
   // Imprimir por pantalla
   Serial.print("Real Power: ");
   Serial.print(sumP / cont, 3);
