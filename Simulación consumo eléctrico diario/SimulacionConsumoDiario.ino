@@ -5,7 +5,7 @@
 
 // Variables conexión WiFi
 #define WIFI_NETWORK "Redmi Note 9"
-#define WIFI_PASSWORD "b84eeb0eb3aa"
+#define WIFI_PASSWORD "************"
 
 // Variables fijas de calibración
 #define pinV 39
