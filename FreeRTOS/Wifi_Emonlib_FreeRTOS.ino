@@ -9,7 +9,7 @@
 
 // Variables conexión WiFi
 #define WIFI_NETWORK "Redmi Note 9"
-#define WIFI_PASSWORD "b84eeb0eb3aa"
+#define WIFI_PASSWORD "************"
 #define WIFI_TIMEOUT_MS 10000 // 10 second WiFi connection timeout
 #define WIFI_RECOVER_TIME_MS 30000 // Wait 30 seconds after a failed connection attempt
 
