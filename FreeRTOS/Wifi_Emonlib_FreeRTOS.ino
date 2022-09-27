@@ -16,7 +16,7 @@
 
 #define pinV 39
 #define pinI 35
-#define vCalibration 214
+#define vCalibration 210
 #define iCalibration 4.4
 #define phase_shift 1
 
